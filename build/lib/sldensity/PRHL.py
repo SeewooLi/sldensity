@@ -57,13 +57,13 @@ def PRHL_param(df):
     m = mean-((gms.digamma(a)-gms.digamma(1))/l)
     return(a,m,l, skew)
 
-def Vt_skew(df):
+def moments(df):
     mean = df.bias_idx_num.dot(df.cell_cnt)/np.sum(df.cell_cnt)
     df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
     mean = df.bias_idx_num.dot(df.cell_cnt)/np.sum(df.cell_cnt)
     var = 1.2*((df.bias_idx_num-mean)**2).dot(df.cell_cnt)/(np.sum(df.cell_cnt)-1)
     skew = (((df.bias_idx_num-mean)/np.sqrt(var))**3).dot(df.cell_cnt)/np.sum(df.cell_cnt)
-    return(skew)
+    return(mean, var, skew)
 
 def PRHLM(df, a, m, l):
     idx = np.array(df.iloc[:,0])
