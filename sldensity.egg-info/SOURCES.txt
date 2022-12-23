@@ -6,5 +6,4 @@ sldensity/__init__.py
 sldensity.egg-info/PKG-INFO
 sldensity.egg-info/SOURCES.txt
 sldensity.egg-info/dependency_links.txt
-sldensity.egg-info/requires.txt
 sldensity.egg-info/top_level.txt
