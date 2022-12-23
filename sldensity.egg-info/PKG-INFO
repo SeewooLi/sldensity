@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: sldensity
+Version: 0.1.1
+Summary: Skewed logistic distribution for FADU NAND-TF
+Home-page: http://gitlab.o/fredric/sldensity.git
+Author: Seewoo Fredric Li
+License: MIT
