@@ -72,10 +72,10 @@ def moments_pdf(a, m, l):
     return(mean, var, skew)
 
 def dMPRHL(x, a, m, l):
-    density = np.zeros(len(x))
+    pdf = np.zeros(len(x))
     for i in range(7):
-        density += dPRHL(x, a[i], m[i], l[i])/7
-    return(density)
+        pdf += dPRHL(x, a[i], m[i], l[i])/7
+    return(pdf)
 
 def estMPRHL(df, a, m, l):
     idx = np.array(df.bias_idx_num)
@@ -117,5 +117,5 @@ def estMPRHL(df, a, m, l):
             m = m_n
             l = l_n
     
-    return(a,m,l, sk)
+    return(a, m, l, sk)
 
