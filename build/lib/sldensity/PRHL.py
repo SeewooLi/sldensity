@@ -4,16 +4,16 @@ import numpy as np
 from scipy.stats import norm
 
 def dPRHL(x, a, m, l):
-    s= a*l*np.exp(-l*(x-m))/(1+np.exp(-l*(x-m)))**(a+1)
-    return(s)
+    pdf= a*l*np.exp(-l*(x-m))/(1+np.exp(-l*(x-m)))**(a+1)
+    return(pdf)
 
 def cPRHL(x, a, m, l):
-    s= (1+np.exp(-l*(x-m)))**(-a)
-    return(s)
+    cdf= (1+np.exp(-l*(x-m)))**(-a)
+    return(cdf)
 
 def rPRHL(n, a, m, l):
-    sss = np.random.uniform(0, 1, size=n)
-    return(m-1/l*np.log(sss**(-1/a)-1))
+    samples = m-1/l*np.log(np.random.uniform(0, 1, size=n)**(-1/a)-1)
+    return(samples)
 
 def func(x, sk):
     return((sk*(gms.polygamma(1,x)+gms.polygamma(1,1))**(3/2)-
@@ -45,7 +45,7 @@ def alpha_(sk, dim, a=None):
         thres = (abs(thres)).max()        
     return(a)
 
-def PRHL_param(df):
+def estPRHL(df):
     tt = np.sum(df.cell_cnt)
     mean = df.bias_idx_num.dot(df.cell_cnt)/tt
     df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
@@ -65,7 +65,13 @@ def moments(df):
     skew = (((df.bias_idx_num-mean)/np.sqrt(var))**3).dot(df.cell_cnt)/np.sum(df.cell_cnt)
     return(mean, var, skew)
 
-def PRHLM(df, a, m, l):
+def dMPRHL(x, a, m, l):
+    density = np.zeros(len(x))
+    for i in range(7):
+        density += dPRHL(x, a[i], m[i], l[i])/7
+    return(density)
+
+def estMPRHL(df, a, m, l):
     idx = np.array(df.iloc[:,0])
     cnt = np.array(df.iloc[:,1])
     #ms = len(idx)/8*np.array(range(1,8,1))
@@ -110,8 +116,3 @@ def PRHLM(df, a, m, l):
     
     return(a,m,l, sk)
 
-def dPRHLM(x, a, m, l):
-    density = np.zeros(len(x))
-    for i in range(7):
-        density += dPRHL(x, a[i], m[i], l[i])/7
-    return(density)
