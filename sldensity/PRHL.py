@@ -74,7 +74,7 @@ def moments_pdf(a, m, l):
 def dMPRHL(x, a, m, l):
     pdf = np.zeros(len(x))
     for i in range(7):
-        pdf = pdf + dPRHL(x, a[i], m[i], l[i])/7
+        pdf += dPRHL(x, a[i], m[i], l[i])/7
     return(pdf)
 
 def estMPRHL(df, a, m, l):
