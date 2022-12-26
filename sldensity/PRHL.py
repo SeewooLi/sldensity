@@ -66,7 +66,7 @@ def moments_df(df):
     return(mean, var, skew)
 
 def moments_pdf(a, m, l):
-    mean = m+(gms.gamma(a)-gms.gamma(1))/l
+    mean = m+(gms.digamma(a)-gms.digamma(1))/l
     var = (gms.polygamma(1,a)+gms.polygamma(1,1))/(l**2)
     skew = (gms.polygamma(2,a)-gms.polygamma(2,1))/((gms.polygamma(1,a)+gms.polygamma(1,1))**1.5)
     return(mean, var, skew)
