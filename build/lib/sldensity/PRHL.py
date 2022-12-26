@@ -55,14 +55,20 @@ def estPRHL(df):
     a = alpha(sk = skew)
     l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/var)
     m = mean-((gms.digamma(a)-gms.digamma(1))/l)
-    return(a,m,l, skew)
+    return(a, m, l, skew)
 
-def moments(df):
+def moments_df(df):
     mean = df.bias_idx_num.dot(df.cell_cnt)/np.sum(df.cell_cnt)
     df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
     mean = df.bias_idx_num.dot(df.cell_cnt)/np.sum(df.cell_cnt)
     var = 1.2*((df.bias_idx_num-mean)**2).dot(df.cell_cnt)/(np.sum(df.cell_cnt)-1)
     skew = (((df.bias_idx_num-mean)/np.sqrt(var))**3).dot(df.cell_cnt)/np.sum(df.cell_cnt)
+    return(mean, var, skew)
+
+def moments_pdf(a, m, l):
+    mean = m+(gms.gamma(a)-gms.gamma(1))/l
+    var = (gms.polygamma(1,a)+gms.polygamma(1,1))/(l**2)
+    skew = (gms.polygamma(2,a)-gms.polygamma(2,1))/((gms.polygamma(1,a)+gms.polygamma(1,1))**1.5)
     return(mean, var, skew)
 
 def dMPRHL(x, a, m, l):
@@ -72,17 +78,14 @@ def dMPRHL(x, a, m, l):
     return(density)
 
 def estMPRHL(df, a, m, l):
-    idx = np.array(df.iloc[:,0])
-    cnt = np.array(df.iloc[:,1])
-    #ms = len(idx)/8*np.array(range(1,8,1))
-    #sds = np.array(5).repeat(7)
-    
-    #sk = np.zeros(7)
+    idx = np.array(df.bias_idx_num)
+    cnt = np.array(df.cell_cnt)
     
     n_iters = 0
     thres = 10
     thres2 = 1
     a_n = None
+
     while (thres >= 0.0001):
         n_iters += 1
         resp = np.empty((0,len(idx)))
