@@ -28,7 +28,7 @@ def SS_a_to_sigma(s,a):
     return(r1)
 
 def a_to_sigma(a):
-    res = minimize(a_to_sigma, x0=[1,1], method = 'Nelder-Mead',args=(a,))
+    res = minimize(SS_a_to_sigma, x0=[1,1], method = 'Nelder-Mead',args=(a,))
     return(res)
 
 def func(x, sk):
