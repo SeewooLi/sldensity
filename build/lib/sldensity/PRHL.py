@@ -2,6 +2,7 @@ import scipy.special as gms
 import pandas as pd
 import numpy as np
 from scipy.stats import norm
+from scipy.optimize import minimize
 
 def dPRHL(x, a, m, l):
     pdf= a*l*np.exp(-l*(x-m))/(1+np.exp(-l*(x-m)))**(a+1)
@@ -11,9 +12,24 @@ def cPRHL(x, a, m, l):
     cdf= (1+np.exp(-l*(x-m)))**(-a)
     return(cdf)
 
+def qPRHL(q, a, m, l):
+    quantile= m-np.log(q**(-1/a)-1)/l
+    return(quantile)
+
 def rPRHL(n, a, m, l):
     samples = m-1/l*np.log(np.random.uniform(0, 1, size=n)**(-1/a)-1)
     return(samples)
+
+def SS_a_to_sigma(s,a):
+    xx = np.arange(0.001,.5,0.001)
+    l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/1)
+    m = np.log(2**(1/a)-1)/l
+    r1 = sum((qPRHL(xx,a,m,l)-norm.ppf(xx,0,s[0]))**2)+sum((qPRHL(1-xx,a,m,l)-norm.ppf(1-xx,0,s[1]))**2)
+    return(r1)
+
+def a_to_sigma(a):
+    res = minimize(a_to_sigma, x0=[1,1], method = 'Nelder-Mead',args=(a,))
+    return(res)
 
 def func(x, sk):
     return((sk*(gms.polygamma(1,x)+gms.polygamma(1,1))**(3/2)-
