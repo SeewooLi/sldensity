@@ -41,9 +41,15 @@ def m_grad(x, sk):
 def alpha(sk):
     a = 1
     thres = 1
-    while thres >= 0.00001:
+    div = 0.5
+    while thres >= 0.00001:  
         thres = -func(x=a, sk=sk)/m_grad(x=a, sk=sk)
-        a += thres        
+        if abs(thres)<div:
+            a = a+thres
+            div = thres
+        else:
+            a = a+thres*div/abs(thres)
+        thres = abs(thres)   
     return(a)
 
 def alpha_(sk, dim, a=None):
