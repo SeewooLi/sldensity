@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 setup(
     name='sldensity',
     packages=find_packages(include=['sldensity']),
-    version='0.3.0',
+    version='0.3.1',
     url='http://gitlab.o/fredric/sldensity.git',
     description='Skewed logistic distribution for FADU NAND-TF',
     author='Seewoo Fredric Li',
