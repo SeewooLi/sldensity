@@ -68,7 +68,12 @@ def alpha_(sk, dim, a=None):
     return(a)
 
 def estPRHL(df):
-    mean,var,skew = moments_df(df)
+    tt = np.sum(df.cell_cnt)
+    mean = df.bias_idx_num.dot(df.cell_cnt)/tt
+    df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
+    mean = df.bias_idx_num.dot(df.cell_cnt)/tt
+    var = 1.2*((df.bias_idx_num-mean)**2).dot(df.cell_cnt)/(tt-1)
+    skew = (((df.bias_idx_num-mean)/np.sqrt(var))**3).dot(df.cell_cnt)/tt
     a = alpha(sk = skew)
     l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/var)
     m = mean-((gms.digamma(a)-gms.digamma(1))/l)
