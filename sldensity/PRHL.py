@@ -183,3 +183,16 @@ def trc_logis(df):
     except:
         res = minimize(SS_trc_logis, x0=[20,5], method = 'Powell',args=(df,), bounds=([10,40],[2,100]))
     return(res)
+
+def PRHL_read_bias(df):
+    a = df.alpha
+    m = df.mu
+    l = df['lambda']
+    x = np.arange(0,190,.5)
+    rb = np.zeros(7)
+    for i in range(7):
+        diff = np.log(dPRHL(x, a[i], m[i], l[i])/dPRHL(x, a[i+1], m[i+1], l[i+1]))
+        pos_indices = np.where(diff > 0)
+        neg_indices = np.where(diff < 0)
+        rb[i] = np.intersect1d((neg_indices[0]-1), pos_indices)/2
+    return(rb)
