@@ -178,5 +178,5 @@ def SS_trc_logis(par, df):
 
 def trc_logis(df):
     df = df0(df)
-    res = minimize(SS_trc_logis, x0=[5,10], method = 'Powell',args=(df,), bounds=([-5,30],[3,8]))
+    res = minimize(SS_trc_logis, x0=[5,4], method = 'Powell',args=(df,), bounds=([-5,30],[3,8]))
     return(res)
