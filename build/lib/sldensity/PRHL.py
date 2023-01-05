@@ -173,7 +173,7 @@ def SS_trc_logis(par, df):
     s = par[1]
     x = df[0]
     x_ = qlog(df[1],m,s)
-    err = sum(abs(x-x_))
+    err = np.nansum(abs(x-x_))
     return(err)
 
 def trc_logis(df):
@@ -181,5 +181,5 @@ def trc_logis(df):
     try:
         res = minimize(SS_trc_logis, x0=[5,4], method = 'Powell',args=(df,), bounds=([-5,30],[2,80]))
     except:
-        res = minimize(SS_trc_logis, x0=[30,5], method = 'Powell',args=(df,))
+        res = minimize(SS_trc_logis, x0=[20,5], method = 'Powell',args=(df,), bounds=([10,40],[2,100]))
     return(res)
