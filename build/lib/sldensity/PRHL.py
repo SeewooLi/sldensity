@@ -168,7 +168,7 @@ def df0(df):
     return(df_)
                     
 def SS_trc_logis(par, df):
-    df = df[:,df[1]!=1]
+    df = df[:,df[1]<=.95]
     m = par[0]
     s = par[1]
     x = df[0]
