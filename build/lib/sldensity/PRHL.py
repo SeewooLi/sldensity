@@ -76,15 +76,24 @@ def alpha_(sk, dim, a=None):
     return(a)
 
 def estPRHL(df):
-    tt = np.sum(df.cell_cnt)
-    mean = df.bias_idx_num.dot(df.cell_cnt)/tt
-    df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
-    mean = df.bias_idx_num.dot(df.cell_cnt)/tt
-    var = 1.2*((df.bias_idx_num-mean)**2).dot(df.cell_cnt)/(tt-1)
-    skew = (((df.bias_idx_num-mean)/np.sqrt(var))**3).dot(df.cell_cnt)/tt
-    a = alpha(sk = skew)
-    l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/var)
-    m = mean-((gms.digamma(a)-gms.digamma(1))/l)
+    if df.ptn_num.unique()==0:
+        res = trc_logis(df)
+        a=1
+        skew = 0
+        mean = res.x[0]
+        var = (res.x[1])**2
+        m = mean
+        l = 1.702/res.x[1]
+    else:
+        tt = np.sum(df.cell_cnt)
+        mean = df.bias_idx_num.dot(df.cell_cnt)/tt
+        df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
+        mean = df.bias_idx_num.dot(df.cell_cnt)/tt
+        var = 1.2*((df.bias_idx_num-mean)**2).dot(df.cell_cnt)/(tt-1)
+        skew = (((df.bias_idx_num-mean)/np.sqrt(var))**3).dot(df.cell_cnt)/tt
+        a = alpha(sk = skew)
+        l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/var)
+        m = mean-((gms.digamma(a)-gms.digamma(1))/l)
     return(a, m, l, mean, var, skew)
 
 def moments_df(df):
