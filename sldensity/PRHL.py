@@ -43,7 +43,8 @@ def alpha(sk):
     thres = 1
     while thres >= 0.00001:
         thres = -func(x=a, sk=sk)/m_grad(x=a, sk=sk)
-        a += thres        
+        a += thres  
+        thres = abs(thres)      
     return(a)
 # def alpha(sk):
 #     a = 1
