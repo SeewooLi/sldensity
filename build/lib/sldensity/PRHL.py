@@ -179,7 +179,7 @@ def SS_trc_logis(par, df):
 def trc_logis(df):
     df = df0(df)
     try:
-        res = minimize(SS_trc_logis, x0=[5,4], method = 'Powell',args=(df,), bounds=([-5,30],[3,8]))
+        res = minimize(SS_trc_logis, x0=[5,4], method = 'Powell',args=(df,), bounds=([-5,30],[2,80]))
     except:
-        res = minimize(SS_trc_logis, x0=[20,4], method = 'Powell',args=(df,), bounds=([10,40],[3,10]))
+        res = minimize(SS_trc_logis, x0=[20,4], method = 'Powell',args=(df,), bounds=([10,40],[2,100]))
     return(res)
