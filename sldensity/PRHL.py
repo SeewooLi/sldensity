@@ -181,5 +181,5 @@ def trc_logis(df):
     try:
         res = minimize(SS_trc_logis, x0=[5,4], method = 'Powell',args=(df,), bounds=([-5,30],[2,80]))
     except:
-        res = minimize(SS_trc_logis, x0=[30,5], method = 'Powell',args=(df,), bounds=([10,40],[2,100]))
+        res = minimize(SS_trc_logis, x0=[30,5], method = 'Powell',args=(df,))
     return(res)
