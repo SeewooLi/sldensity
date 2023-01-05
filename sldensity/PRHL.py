@@ -85,7 +85,7 @@ def estPRHL(df):
     a = alpha(sk = skew)
     l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/var)
     m = mean-((gms.digamma(a)-gms.digamma(1))/l)
-    return(a, m, l, skew)
+    return(a, m, l, mean, var, skew)
 
 def moments_df(df):
     tt = np.sum(df.cell_cnt)
