@@ -41,16 +41,23 @@ def m_grad(x, sk):
 def alpha(sk):
     a = 1
     thres = 1
-    div = 0.5
-    while thres >= 0.00001:  
+    while thres >= 0.00001:
         thres = -func(x=a, sk=sk)/m_grad(x=a, sk=sk)
-        if abs(thres)<div:
-            a = a+thres
-            div = thres
-        else:
-            a = a+thres*div/abs(thres)
-        thres = abs(thres)   
+        a += thres        
     return(a)
+# def alpha(sk):
+#     a = 1
+#     thres = 1
+#     div = 0.5
+#     while thres >= 0.00001:  
+#         thres = -func(x=a, sk=sk)/m_grad(x=a, sk=sk)
+#         if abs(thres)<div:
+#             a = a+thres
+#             div = thres
+#         else:
+#             a = a+thres*div/abs(thres)
+#         thres = abs(thres)   
+#     return(a)
 
 def alpha_(sk, dim, a=None):
     if np.array(a == None).any():
@@ -142,3 +149,24 @@ def estMPRHL(df, a, m, l):
     
     return(a, m, l, sk)
 
+def qlog(q,m,s):
+    x = m+s/1.702*np.log(q/(1-q))
+    return(x)
+
+def df0(df):
+    df_ = np.vstack((df.bias_idx_num[5:50],(df.cell_cnt.cumsum()/df.cell_cnt.sum())[5:50]))
+    return(df_)
+                    
+def SS_trc_logis(par, df):
+    df = df[:,df[1]!=1]
+    m = par[0]
+    s = par[1]
+    x = df[0]
+    x_ = qlog(df[1],m,s)
+    err = sum(abs(x-x_))
+    return(err)
+
+def trc_logis(df):
+    df = df0(df)
+    res = minimize(SS_trc_logis, x0=[5,10], method = 'Powell',args=(df,), bounds=([-10,30],[5,15]))
+    return(res)
