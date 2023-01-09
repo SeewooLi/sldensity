@@ -166,7 +166,7 @@ def qlog(q,m,s):
     return(x)
 
 def df0(df):
-    df_ = np.vstack((df.bias_idx_num[5:50],(df.cell_cnt.cumsum()/df.cell_cnt.sum())[5:50]))
+    df_ = np.vstack((df.bias_idx_num.iloc[5:50],(df.cell_cnt.cumsum()/df.cell_cnt.sum()).iloc[5:50]))
     return(df_)
                     
 def SS_trc_logis(par, df):
