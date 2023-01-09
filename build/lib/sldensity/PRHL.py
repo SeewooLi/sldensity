@@ -89,6 +89,7 @@ def estPRHL(df):
         tt = np.sum(df.cell_cnt)
         mean = df.bias_idx_num.dot(df.cell_cnt)/tt
         df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
+        tt = np.sum(df.cell_cnt)
         mean = df.bias_idx_num.dot(df.cell_cnt)/tt
         var = ((df.bias_idx_num-mean)**2).dot(df.cell_cnt)/(tt-1)
         skew = (((df.bias_idx_num-mean)/np.sqrt(var))**3).dot(df.cell_cnt)/tt
