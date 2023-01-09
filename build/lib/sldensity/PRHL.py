@@ -187,8 +187,8 @@ def trc_logis(df):
     return(res)
 
 def PRHL_read_bias(df):
-    a = df.alpha.values
-    m = df.mu.values
+    a = df['alpha'].values
+    m = df['mu'].values
     l = df['lambda'].values
     x = np.arange(0,190,.5)
     rb = np.zeros(7)
