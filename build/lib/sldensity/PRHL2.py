@@ -2,6 +2,11 @@ import scipy.special as gms
 import pandas as pd
 import numpy as np
 from scipy.stats import norm
+
+def dPRHL(x, a, m, l):
+    s= a*l*np.exp(-l*(x-m))/(1+np.exp(-l*(x-m)))**(a+1)
+    return(s)
+
 def cPRHL(x, a, m, l):
     s= (1+np.exp(-l*(x-m)))**(-a)
     return(s)
