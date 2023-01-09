@@ -199,5 +199,5 @@ def PRHL_read_bias(df):
         diff = np.log(dPRHL(x, df.loc[i,'alpha'], df.loc[i,'mu'], df.loc[i,'lambda'])/dPRHL(x, df.loc[i+1,'alpha'], df.loc[i+1,'mu'], df.loc[i+1,'lambda']))
         pos_indices = np.where(diff > 0)
         neg_indices = np.where(diff < 0)
-        rb[i] = np.intersect1d((neg_indices[0]-1), pos_indices)/2
+        rb[i] = np.intersect1d((neg_indices[0]-1), pos_indices)/10+25
     return(rb)
