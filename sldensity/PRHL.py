@@ -200,4 +200,4 @@ def PRHL_read_bias(df):
         pos_indices = np.where(diff > 0)
         neg_indices = np.where(diff < 0)
         rb[i] = np.intersect1d((neg_indices[0]-1), pos_indices)/10+25
-    return(rb)
+    return(pd.Series(rb))
