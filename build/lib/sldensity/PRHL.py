@@ -188,13 +188,15 @@ def trc_logis(df):
 
 def PRHL_read_bias(df):
     df = df.reset_index(drop=True)
-    a = df['alpha']
-    m = df['mu']
-    l = df['lambda']
+    # df.loc[i,'alpha']
+    # a = df['alpha']
+    # m = df['mu']
+    # l = df['lambda']
     x = np.arange(0,190,.5)
     rb = np.zeros(7)
     for i in range(7):
-        diff = np.log(dPRHL(x, a[i], m[i], l[i])/dPRHL(x, a[i+1], m[i+1], l[i+1]))
+        # diff = np.log(dPRHL(x, a[i], m[i], l[i])/dPRHL(x, a[i+1], m[i+1], l[i+1]))
+        diff = np.log(dPRHL(x, df.loc[i,'alpha'], df.loc[i,'mu'], df.loc[i,'lambda'])/dPRHL(x, df.loc[i+1,'alpha'], df.loc[i+1,'mu'], df.loc[i+1,'lambda']))
         pos_indices = np.where(diff > 0)
         neg_indices = np.where(diff < 0)
         rb[i] = np.intersect1d((neg_indices[0]-1), pos_indices)/2
