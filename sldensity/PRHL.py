@@ -84,6 +84,7 @@ def estPRHL(df):
         var = (res.x[1])**2
         m = mean
         l = 1.702/res.x[1]
+        median = mean
     else:
         tt = np.sum(df.cell_cnt)
         mean = df.bias_idx_num.dot(df.cell_cnt)/tt
