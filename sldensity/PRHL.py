@@ -192,7 +192,7 @@ def PRHL_read_bias(df):
     # a = df['alpha']
     # m = df['mu']
     # l = df['lambda']
-    x = np.arange(0,190,.5)
+    x = np.arange(25,170,.1)
     rb = np.zeros(7)
     for i in range(7):
         # diff = np.log(dPRHL(x, a[i], m[i], l[i])/dPRHL(x, a[i+1], m[i+1], l[i+1]))
