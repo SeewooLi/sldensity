@@ -4,6 +4,10 @@ import numpy as np
 from scipy.stats import norm
 from scipy.optimize import minimize
 
+############################################################
+# Basic Functions (PDF, CDF, inverse-CDF, random sampling)
+############################################################
+
 def dPRHL(x, a, m, l):
     pdf= a*l*np.exp(-l*(x-m))/(1+np.exp(-l*(x-m)))**(a+1)
     return(pdf)
@@ -20,6 +24,10 @@ def rPRHL(n, a, m, l):
     samples = m-1/l*np.log(np.random.uniform(0, 1, size=n)**(-1/a)-1)
     return(samples)
 
+############################################################
+# Transformation of PRHL alpha to Gaussian sigma_0 & sigma_1
+############################################################
+
 def SS_a_to_sigma(s,a):
     xx = np.arange(0.001,.5,0.001)
     l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/1)
@@ -30,6 +38,11 @@ def SS_a_to_sigma(s,a):
 def a_to_sigma(a):
     res = minimize(SS_a_to_sigma, x0=[1,1], method = 'Nelder-Mead',args=(a,))
     return(res)
+
+
+############################################################
+# PRHL Parameter Estimation (PRHL and mixture-PRHL)
+############################################################
 
 def func(x, sk):
     return((sk*(gms.polygamma(1,x)+gms.polygamma(1,1))**(3/2)-
@@ -46,19 +59,7 @@ def alpha(sk):
         a += thres  
         thres = abs(thres)      
     return(a)
-# def alpha(sk):
-#     a = 1
-#     thres = 1
-#     div = 0.5
-#     while thres >= 0.00001:  
-#         thres = -func(x=a, sk=sk)/m_grad(x=a, sk=sk)
-#         if abs(thres)<div:
-#             a = a+thres
-#             div = thres
-#         else:
-#             a = a+thres*div/abs(thres)
-#         thres = abs(thres)   
-#     return(a)
+
 
 def alpha_(sk, dim, a=None):
     if np.array(a == None).any():
@@ -77,6 +78,7 @@ def alpha_(sk, dim, a=None):
 
 def estPRHL(df):
     if df.ptn_num.unique()==0:
+        # Parameter estimation for PV0
         res = trc_logis(df)
         a=1
         skew = 0
@@ -86,6 +88,7 @@ def estPRHL(df):
         l = 1.702/res.x[1]
         median = mean
     else:
+        # Parameter estimation for PV1-7
         tt = np.sum(df.cell_cnt)
         mean = df.bias_idx_num.dot(df.cell_cnt)/tt
         df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
@@ -162,6 +165,11 @@ def estMPRHL(df, a, m, l):
     
     return(a, m, l, sk)
 
+
+############################################################
+# PV0 Estimation (truncated logistic distribution)
+#############################################################
+
 def qlog(q,m,s):
     x = m+s/1.702*np.log(q/(1-q))
     return(x)
@@ -172,31 +180,24 @@ def df0(df):
                     
 def SS_trc_logis(par, df):
     df = df[:,(df[1]<=.95)&(df[1]>=.05)]
-    m = par[0]
-    s = par[1]
-    x = df[0]
-    x_ = qlog(df[1],m,s)
-    err = np.nansum(abs(x-x_))
+    x_ = qlog(df[1],par[0],par[1])
+    err = np.nansum(abs(df[0]-x_))
     return(err)
 
 def trc_logis(df):
     df = df0(df)
-    try:
-        res = minimize(SS_trc_logis, x0=[5,4], method = 'Powell',args=(df,), bounds=([-5,30],[2,80]))
-    except:
-        res = minimize(SS_trc_logis, x0=[20,5], method = 'Powell',args=(df,), bounds=([10,40],[2,100]))
+    res = minimize(SS_trc_logis, x0=[5,4], method = 'Powell',args=(df,), bounds=([-5,30],[2,80]))
     return(res)
+
+############################################################
+# Read Bias
+#############################################################
 
 def PRHL_read_bias(df):
     df = df.reset_index(drop=True)
-    # df.loc[i,'alpha']
-    # a = df['alpha']
-    # m = df['mu']
-    # l = df['lambda']
     x = np.arange(25,170,.1)
     rb = np.append(np.nan, np.zeros(7))
     for i in range(7):
-        # diff = np.log(dPRHL(x, a[i], m[i], l[i])/dPRHL(x, a[i+1], m[i+1], l[i+1]))
         diff = np.log(dPRHL(x, df.loc[i,'alpha'], df.loc[i,'mu'], df.loc[i,'lambda'])/dPRHL(x, df.loc[i+1,'alpha'], df.loc[i+1,'mu'], df.loc[i+1,'lambda']))
         pos_indices = np.where(diff > 0)
         neg_indices = np.where(diff < 0)
