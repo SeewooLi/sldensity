@@ -29,7 +29,7 @@ def rPRHL(n, a, m, l):
 ############################################################
 
 def SS_a_to_sigma(s,a):
-    xx = np.arange(0.001,.5,0.001)
+    xx = np.arange(0.01,.5,0.01)
     l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/1)
     m = np.log(2**(1/a)-1)/l
     r1 = sum((qPRHL(xx,a,m,l)-norm.ppf(xx,0,s[0]))**2)+sum((qPRHL(1-xx,a,m,l)-norm.ppf(1-xx,0,s[1]))**2)
