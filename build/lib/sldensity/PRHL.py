@@ -175,7 +175,7 @@ def qlog(q,m,s):
     return(x)
 
 def df0(df):
-    df_ = np.vstack((df.bias_idx_num.iloc[5:65],(df.cell_cnt.cumsum()/df.cell_cnt.sum()).iloc[5:65]))
+    df_ = np.vstack((df.bias_idx_num.iloc[5:75],(df.cell_cnt.cumsum()/df.cell_cnt.sum()).iloc[5:75]))
     return(df_)
                     
 def SS_trc_logis(par, df):
@@ -186,7 +186,7 @@ def SS_trc_logis(par, df):
 
 def trc_logis(df):
     df = df0(df)
-    res = minimize(SS_trc_logis, x0=[5,4], method = 'Powell',args=(df,), bounds=([-5,30],[2,80]))
+    res = minimize(SS_trc_logis, x0=[5,4], method = 'Powell',args=(df,), bounds=([-5,50],[1,80]))
     return(res)
 
 ############################################################
