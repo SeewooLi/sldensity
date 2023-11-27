@@ -286,7 +286,7 @@ Using $M''_x(0)$ and $\left[M'_x(x)\right]^2$,
 
 $$
 \begin{align}
-\therefore Var(x) &=E\left\lbracex^2\right\rbrace-\left[E(x)\right]^2    \\
+\therefore Var(x) &=E\left\lbrace x^2\right\rbrace-\left[E(x)\right]^2    \\
 &= M''_x(0)-\left[M'_x(x)\right]^2    \\
 &=\frac{1}{\lambda^2}\left[\psi'(\alpha)+\psi'(1)\right]    \\
 &\approx\frac{1}{\lambda^2}\left[\frac{1}{\alpha}+\frac{1}{2\alpha^2}+\frac{1}{6\alpha^3}+1.64493407\right]
