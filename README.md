@@ -298,7 +298,7 @@ $$
 
 $$
 \begin{align}
-M^{(3)}_x(0)=E\left\lbracex^3\right\rbrace  &=\mu M''_x(0)+\frac{\mu^2}{\lambda}\left[\psi(\alpha)-\psi(1)\right]    \\
+M^{(3)}_x(0)=E\left\lbrace x^3\right\rbrace  &=\mu M''_x(0)+\frac{\mu^2}{\lambda}\left[\psi(\alpha)-\psi(1)\right]    \\
 &\qquad +\frac{2\mu}{\lambda^2}\left[\left[\psi'(\alpha)+\psi'(1)\right]+\left[\psi(\alpha)-\psi(1)\right]^2\right]    \\
 &\qquad +\frac{1}{\lambda^3}\left[\frac{\Gamma^{(3)}(\alpha)}{\Gamma(\alpha)}-\frac{\Gamma^{(3)}(1)}{\Gamma(1)}\right]    \\
 &\qquad -\frac{1}{\lambda^3}\left[3\psi'(\alpha)\psi(1)-3\psi(\alpha)\psi'(1)\right]    \\
@@ -332,7 +332,7 @@ $$
 
 $$
 \begin{align}
-Var(x)^{\frac{3}{2}}Skew(x)&=E\left[\left\lbracex-E(x)\right\rbrace^3\right]=E\left\lbracex^3\right\rbrace-3E(x)Var(x)-E(x)^3    \\
+Var(x)^{\frac{3}{2}}Skew(x)&=E\left[\left\lbrace x-E(x)\right\rbrace^3\right]=E\left\lbrace x^3\right\rbrace-3E(x)Var(x)-E(x)^3    \\
 &=M^{(3)}_x(0)-3Mean(x)Var(x)-Mean(x)^3    \\
 &=\frac{1}{\lambda^3}\left[\frac{\Gamma^{(3)}(\alpha)}{\Gamma(\alpha)}-\frac{\Gamma^{(3)}(1)}{\Gamma(1)}\right]    \\
 &\qquad -\frac{1}{\lambda^3}\left[3\psi'(\alpha)\psi(1)-3\psi(\alpha)\psi'(1)\right]    \\
