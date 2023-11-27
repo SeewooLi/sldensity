@@ -77,38 +77,38 @@ def alpha_(sk, dim, a=None):
     return(a)
 
 def estPRHL(df):
-    if df.ptn_num.unique()==0:
-        # Parameter estimation for PV0
-        res = trc_logis(df)
-        a=1
-        skew = 0
-        mean = res.x[0]
-        var = (res.x[1])**2
-        m = mean
-        l = 1.702/res.x[1]
-        median = mean
-    else:
+    # if df.x_axis.unique()==0:
+    #     # Parameter estimation for PV0
+    #     res = trc_logis(df)
+    #     a=1
+    #     skew = 0
+    #     mean = res.x[0]
+    #     var = (res.x[1])**2
+    #     m = mean
+    #     l = 1.702/res.x[1]
+    #     median = mean
+    # else:
         # Parameter estimation for PV1-7
-        tt = np.sum(df.cell_cnt)
-        mean = df.bias_idx_num.dot(df.cell_cnt)/tt
-        df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
-        tt = np.sum(df.cell_cnt)
-        mean = df.bias_idx_num.dot(df.cell_cnt)/tt
-        var = ((df.bias_idx_num-mean)**2).dot(df.cell_cnt)/(tt-1)
-        skew = (((df.bias_idx_num-mean)/np.sqrt(var))**3).dot(df.cell_cnt)/tt
-        a = alpha(sk = skew)
-        l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/var)
-        m = mean-((gms.digamma(a)-gms.digamma(1))/l)
-        median = m-np.log(2**(1/a)-1)/l
+    tt = np.sum(df.freq)
+    mean = df.x_axis.dot(df.freq)/tt
+    df = df.loc[(df['x_axis']>=mean-15)&(df['x_axis']<=mean+15),:]
+    tt = np.sum(df.freq)
+    mean = df.x_axis.dot(df.freq)/tt
+    var = ((df.x_axis-mean)**2).dot(df.freq)/(tt-1)
+    skew = (((df.x_axis-mean)/np.sqrt(var))**3).dot(df.freq)/tt
+    a = alpha(sk = skew)
+    l = np.sqrt((gms.polygamma(1,a)+gms.polygamma(1,1))/var)
+    m = mean-((gms.digamma(a)-gms.digamma(1))/l)
+    median = m-np.log(2**(1/a)-1)/l
     return(a, m, l, mean, var, skew, median)
 
 def moments_df(df):
-    tt = np.sum(df.cell_cnt)
-    mean = df.bias_idx_num.dot(df.cell_cnt)/tt
-    df = df.loc[(df['bias_idx_num']>=mean-15)&(df['bias_idx_num']<=mean+15),:]
-    mean = df.bias_idx_num.dot(df.cell_cnt)/tt
-    var = 1.2*((df.bias_idx_num-mean)**2).dot(df.cell_cnt)/(tt-1)
-    skew = (((df.bias_idx_num-mean)/np.sqrt(var))**3).dot(df.cell_cnt)/tt
+    tt = np.sum(df.freq)
+    mean = df.x_axis.dot(df.freq)/tt
+    df = df.loc[(df['x_axis']>=mean-15)&(df['x_axis']<=mean+15),:]
+    mean = df.x_axis.dot(df.freq)/tt
+    var = 1.2*((df.x_axis-mean)**2).dot(df.freq)/(tt-1)
+    skew = (((df.x_axis-mean)/np.sqrt(var))**3).dot(df.freq)/tt
     return(mean, var, skew)
 
 def moments_pdf(a, m, l):
@@ -124,8 +124,8 @@ def dMPRHL(x, a, m, l):
     return(pdf)
 
 def estMPRHL(df, a, m, l):
-    idx = np.array(df.bias_idx_num)
-    cnt = np.array(df.cell_cnt)
+    idx = np.array(df.x_axis)
+    cnt = np.array(df.freq)
     
     n_iters = 0
     thres = 10
@@ -175,7 +175,7 @@ def qlog(q,m,s):
     return(x)
 
 def df0(df):
-    df_ = np.vstack((df.bias_idx_num.iloc[5:75],(df.cell_cnt.cumsum()/df.cell_cnt.sum()).iloc[5:75]))
+    df_ = np.vstack((df.x_axis.iloc[5:75],(df.freq.cumsum()/df.freq.sum()).iloc[5:75]))
     return(df_)
                     
 def SS_trc_logis(par, df):

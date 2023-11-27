@@ -1,4 +1,3 @@
-README.md
 setup.py
 sldensity/PRHL.py
 sldensity/PRHL2.py
