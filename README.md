@@ -17,19 +17,19 @@ import seaborn as sns
 # PRHL (proportional reversed hazard logistic) distribution
 
 $$
-f(X)=\frac{\alpha e^{-x}}{\left(1+e^{-x}\right)^{\alpha+1}}
+f(X)=\frac{\alpha e^{-x}}{\left\lbrace1+e^{-x}\right\rbrace^{\alpha+1}}
 $$
 
 $$
-F(X)=\left(1+e^{-x}\right)^{-\alpha}
+F(X)=\left\lbrace1+e^{-x}\right\rbrace^{-\alpha}
 $$
 
 $$
-f(X;\alpha,\mu,\lambda)=\frac{\alpha \lambda e^{-\lambda (x-\mu)}}{\left(1+e^{-\lambda (x-\mu)}\right)^{\alpha+1}}
+f(X;\alpha,\mu,\lambda)=\frac{\alpha \lambda e^{-\lambda (x-\mu)}}{\left\lbrace1+e^{-\lambda (x-\mu)}\right\rbrace^{\alpha+1}}
 $$
 
 $$
-F(X;\alpha,\mu,\lambda)=\left(1+e^{-\lambda (x-\mu)}\right)^{-\alpha}
+F(X;\alpha,\mu,\lambda)=\left\lbrace1+e^{-\lambda (x-\mu)}\right\rbrace^{-\alpha}
 $$
 
 ## **Digamma and poly-gamma functions**
@@ -51,7 +51,7 @@ $$
 $$
 \begin{align}
 \psi'(x)&=\frac{d}{dx}\psi(x)    \\
-&=\frac{\Gamma''(x)}{\Gamma(x)}-\left(\psi(x)\right)^2    \\
+&=\frac{\Gamma''(x)}{\Gamma(x)}-\left\lbrace\psi(x)\right\rbrace^2    \\
 &\approx\sum_{k=0}^{\infty}\frac{B_k}{z^{k+1}}    \\
 &\approx\frac{1}{z}+\frac{1}{2z^2}+\frac{1}{6z^3}+\cdots
 \end{align}
@@ -62,8 +62,8 @@ and
 $$
 \begin{align}
 \psi''(x)&=\frac{d}{dx}\psi'(x)    \\
-&=\frac{d}{dx}\left[\frac{\Gamma''(x)}{\Gamma(x)}-\left(\psi(x)\right)^2\right]    \\
-&=\frac{\Gamma^{(3)}(x)}{\Gamma(x)}-3\psi'(x)\psi(x)-\left(\psi(x)\right)^3    \\
+&=\frac{d}{dx}\left[\frac{\Gamma''(x)}{\Gamma(x)}-\left\lbrace\psi(x)\right\rbrace^2\right]    \\
+&=\frac{\Gamma^{(3)}(x)}{\Gamma(x)}-3\psi'(x)\psi(x)-\left\lbrace\psi(x)\right\rbrace^3    \\
 &\approx-\sum_{k=0}^{\infty}(k+1)\frac{B_k}{z^{k+2}}    \\
 &\approx-\frac{1}{z^2}-\frac{1}{z^3}-\frac{1}{2z^4}+\cdots
 \end{align}
@@ -168,22 +168,22 @@ plot.set(title='Quadgamma',
 
 $$
 \begin{align}
-M_x(t)&=E(e^{tx})=\int_{-\infty}^{\infty}e^{tx}\frac{\alpha \lambda e^{-\lambda (x-\mu)}}{\left(1+e^{-\lambda (x-\mu)}\right)^{\alpha+1}}\,dx    \\
-&=e^{t\mu}\frac{\Gamma\left(1-\frac{t}{\lambda}\right)\Gamma\left(\alpha+\frac{t}{\lambda}\right)}{\Gamma(\alpha)}
+M_x(t)&=E(e^{tx})=\int_{-\infty}^{\infty}e^{tx}\frac{\alpha \lambda e^{-\lambda (x-\mu)}}{\left\lbrace1+e^{-\lambda (x-\mu)}\right\rbrace^{\alpha+1}}\,dx    \\
+&=e^{t\mu}\frac{\Gamma\left\lbrace1-\frac{t}{\lambda}\right\rbrace\Gamma\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace}{\Gamma(\alpha)}
 \end{align}
 $$
 
-Let, $u=\left(1+e^{-\lambda (x-\mu)}\right)^{-1}$.
+Let, $u=\left\lbrace1+e^{-\lambda (x-\mu)}\right\rbrace^{-1}$.
 
-Then, $\frac{du}{dx}=\frac{\lambda e^{-\lambda (x-\mu)}}{\left(1+e^{-\lambda (x-\mu)}\right)^{2}}$,
+Then, $\frac{du}{dx}=\frac{\lambda e^{-\lambda (x-\mu)}}{\left\lbrace1+e^{-\lambda (x-\mu)}\right\rbrace^{2}}$,
 
 and
 
 $$
 \begin{align}
 \frac{1-u}{u}&=e^{\lambda(x-\mu)}    \\
-e^{-\lambda\mu}\left(\frac{1-u}{u}\right)&=e^{-\lambda x}    \\
-\left[e^{-\lambda\mu}\left(\frac{1-u}{u}\right)\right]^{-\frac{t}{\lambda}}&=e^{tx}
+e^{-\lambda\mu}\left\lbrace\frac{1-u}{u}\right\rbrace&=e^{-\lambda x}    \\
+\left[e^{-\lambda\mu}\left\lbrace\frac{1-u}{u}\right\rbrace\right]^{-\frac{t}{\lambda}}&=e^{tx}
 \end{align}
 $$
 
@@ -191,13 +191,13 @@ Therefore,
 
 $$
 \begin{align}
-M_x(t)&=E(e^{tx})=\int_{0}^{1}\left[e^{-\lambda\mu}\left(\frac{1-u}{u}\right)\right]^{-\frac{t}{\lambda}}\frac{\alpha}{\left(1+e^{-\lambda (x-\mu)}\right)^{\alpha-1}}\,du    \\
-&=\int_{0}^{1}\left[e^{-\lambda\mu}\left(\frac{1-u}{u}\right)\right]^{-\frac{t}{\lambda}}\alpha u^{\alpha-1}\,du    \\
+M_x(t)&=E(e^{tx})=\int_{0}^{1}\left[e^{-\lambda\mu}\left\lbrace\frac{1-u}{u}\right\rbrace\right]^{-\frac{t}{\lambda}}\frac{\alpha}{\left\lbrace1+e^{-\lambda (x-\mu)}\right\rbrace^{\alpha-1}}\,du    \\
+&=\int_{0}^{1}\left[e^{-\lambda\mu}\left\lbrace\frac{1-u}{u}\right\rbrace\right]^{-\frac{t}{\lambda}}\alpha u^{\alpha-1}\,du    \\
 &=\alpha e^{t\mu}\int_{0}^{1}(1-u)^{-\frac{t}{\lambda}}u^{\frac{t}{\lambda}} u^{\alpha-1}\,du    \\
 &=\alpha e^{t\mu}\int_{0}^{1}(1-u)^{-\frac{t}{\lambda}}u^{\alpha+\frac{t}{\lambda}-1}\,du    \\
-&=\alpha e^{t\mu} Beta\left(1-\frac{t}{\lambda},\, \alpha+\frac{t}{\lambda}\right)      \\
-&=\alpha e^{t\mu}\frac{\Gamma\left(1-\frac{t}{\lambda}\right)\Gamma\left(\alpha+\frac{t}{\lambda}\right)}{\Gamma(\alpha+1)}    \\
-&=e^{t\mu}\frac{\Gamma\left(1-\frac{t}{\lambda}\right)\Gamma\left(\alpha+\frac{t}{\lambda}\right)}{\Gamma(\alpha)}
+&=\alpha e^{t\mu} Beta\left\lbrace1-\frac{t}{\lambda},\, \alpha+\frac{t}{\lambda}\right\rbrace      \\
+&=\alpha e^{t\mu}\frac{\Gamma\left\lbrace1-\frac{t}{\lambda}\right\rbrace\Gamma\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace}{\Gamma(\alpha+1)}    \\
+&=e^{t\mu}\frac{\Gamma\left\lbrace1-\frac{t}{\lambda}\right\rbrace\Gamma\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace}{\Gamma(\alpha)}
 \end{align}
 $$
 
@@ -205,7 +205,7 @@ $$
 
 $$
 \begin{align}
-M'_x(t)&=\mu M_x(t)+e^{t\mu}\left[\frac{\Gamma'\left(\alpha+\frac{t}{\lambda}\right)\Gamma\left(1-\frac{t}{\lambda}\right)}{\lambda\Gamma\left(\alpha\right)}-\frac{\Gamma\left(\alpha+\frac{t}{\lambda}\right)\Gamma'\left(1-\frac{t}{\lambda}\right)}{\lambda\Gamma\left(\alpha\right)}\right]
+M'_x(t)&=\mu M_x(t)+e^{t\mu}\left[\frac{\Gamma'\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda\Gamma\left\lbrace\alpha\right\rbrace}-\frac{\Gamma\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma'\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda\Gamma\left\lbrace\alpha\right\rbrace}\right]
 \end{align}    
 $$
 
@@ -214,9 +214,9 @@ $$
 $$
 \begin{align}
 M''_x(t)&=\mu M'_x(t)    \\
-&\qquad +\mu e^{t\mu}\left[\frac{\Gamma'\left(\alpha+\frac{t}{\lambda}\right)\Gamma\left(1-\frac{t}{\lambda}\right)}{\lambda\Gamma\left(\alpha\right)}-\frac{\Gamma\left(\alpha+\frac{t}{\lambda}\right)\Gamma'\left(1-\frac{t}{\lambda}\right)}{\lambda\Gamma\left(\alpha\right)}\right]    \\
-&\qquad +e^{t\mu}\left[\frac{\Gamma''\left(\alpha+\frac{t}{\lambda}\right)\Gamma\left(1-\frac{t}{\lambda}\right)-\Gamma'\left(\alpha+\frac{t}{\lambda}\right)\Gamma'\left(1-\frac{t}{\lambda}\right)}{\lambda^2\Gamma\left(\alpha\right)}
--\frac{\Gamma'\left(\alpha+\frac{t}{\lambda}\right)\Gamma'\left(1-\frac{t}{\lambda}\right)-\Gamma\left(\alpha+\frac{t}{\lambda}\right)\Gamma''\left(1-\frac{t}{\lambda}\right)}{\lambda^2\Gamma\left(\alpha\right)}\right]
+&\qquad +\mu e^{t\mu}\left[\frac{\Gamma'\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda\Gamma\left\lbrace\alpha\right\rbrace}-\frac{\Gamma\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma'\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda\Gamma\left\lbrace\alpha\right\rbrace}\right]    \\
+&\qquad +e^{t\mu}\left[\frac{\Gamma''\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma\left\lbrace1-\frac{t}{\lambda}\right\rbrace-\Gamma'\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma'\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda^2\Gamma\left\lbrace\alpha\right\rbrace}
+-\frac{\Gamma'\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma'\left\lbrace1-\frac{t}{\lambda}\right\rbrace-\Gamma\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma''\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda^2\Gamma\left\lbrace\alpha\right\rbrace}\right]
 \end{align}
 $$
 
@@ -225,11 +225,11 @@ and
 $$
 \begin{align}
 M^{(3)}_x(t)&=\mu M''_x(t)    \\
-&\qquad +\mu^2 e^{t\mu}\left[\frac{\Gamma'\left(\alpha+\frac{t}{\lambda}\right)\Gamma\left(1-\frac{t}{\lambda}\right)}{\lambda\Gamma\left(\alpha\right)}-\frac{\Gamma\left(\alpha+\frac{t}{\lambda}\right)\Gamma'\left(1-\frac{t}{\lambda}\right)}{\lambda\Gamma\left(\alpha\right)}\right]   \\ 
-&\qquad +2\mu e^{t\mu}\left[\frac{\Gamma''\left(\alpha+\frac{t}{\lambda}\right)\Gamma\left(1-\frac{t}{\lambda}\right)-\Gamma'\left(\alpha+\frac{t}{\lambda}\right)\Gamma'\left(1-\frac{t}{\lambda}\right)}{\lambda^2\Gamma\left(\alpha\right)}
--\frac{\Gamma'\left(\alpha+\frac{t}{\lambda}\right)\Gamma'\left(1-\frac{t}{\lambda}\right)-\Gamma\left(\alpha+\frac{t}{\lambda}\right)\Gamma''\left(1-\frac{t}{\lambda}\right)}{\lambda^2\Gamma\left(\alpha\right)}\right]    \\
-&\qquad +e^{t\mu}\left[\frac{\Gamma^{(3)}\left(\alpha+\frac{t}{\lambda}\right)\Gamma\left(1-\frac{t}{\lambda}\right)-3\Gamma''\left(\alpha+\frac{t}{\lambda}\right)\Gamma'\left(1-\frac{t}{\lambda}\right)}{\lambda^3 \Gamma(\alpha)}
-+\frac{+3\Gamma'\left(\alpha+\frac{t}{\lambda}\right)\Gamma''\left(1-\frac{t}{\lambda}\right)-\Gamma\left(\alpha+\frac{t}{\lambda}\right)\Gamma^{(3)}\left(1-\frac{t}{\lambda}\right)}{\lambda^3 \Gamma(\alpha)}\right]
+&\qquad +\mu^2 e^{t\mu}\left[\frac{\Gamma'\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda\Gamma\left\lbrace\alpha\right\rbrace}-\frac{\Gamma\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma'\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda\Gamma\left\lbrace\alpha\right\rbrace}\right]   \\ 
+&\qquad +2\mu e^{t\mu}\left[\frac{\Gamma''\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma\left\lbrace1-\frac{t}{\lambda}\right\rbrace-\Gamma'\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma'\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda^2\Gamma\left\lbrace\alpha\right\rbrace}
+-\frac{\Gamma'\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma'\left\lbrace1-\frac{t}{\lambda}\right\rbrace-\Gamma\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma''\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda^2\Gamma\left\lbrace\alpha\right\rbrace}\right]    \\
+&\qquad +e^{t\mu}\left[\frac{\Gamma^{(3)}\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma\left\lbrace1-\frac{t}{\lambda}\right\rbrace-3\Gamma''\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma'\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda^3 \Gamma(\alpha)}
++\frac{+3\Gamma'\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma''\left\lbrace1-\frac{t}{\lambda}\right\rbrace-\Gamma\left\lbrace\alpha+\frac{t}{\lambda}\right\rbrace\Gamma^{(3)}\left\lbrace1-\frac{t}{\lambda}\right\rbrace}{\lambda^3 \Gamma(\alpha)}\right]
 \end{align}
 $$
 
@@ -261,11 +261,11 @@ $$
 
 $$
 \begin{align}
-M''_x(0)=E\left[x^2\right]&=\mu M'_x(0)+\frac{\mu}{\lambda}\left[\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}-\frac{\Gamma'(1)}{\Gamma(1)}\right]    \\
+M''_x(0)=E\left[x^2\right]&=\mu M'_x(0)+\frac{\mu}{\lambda} \left[\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}-\frac{\Gamma'(1)}{\Gamma(1)}\right]    \\
 &\qquad +\frac{1}{\lambda^2 \Gamma(\alpha)}\left[\Gamma''(\alpha)\Gamma(1)-2\Gamma'(\alpha)\Gamma'(1)+\Gamma(\alpha)\Gamma''(1)\right]    \\
 &=\mu M'_x(0)+\frac{\mu}{\lambda}\left[\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}-\frac{\Gamma'(1)}{\Gamma(1)}\right]    \\
-&\qquad +\frac{1}{\lambda^2}\left[\frac{\Gamma''(\alpha)}{\Gamma(\alpha)}-\left\{\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}\right\}^2+\frac{\Gamma''(1)}{\Gamma(1)}-\left\{\frac{\Gamma'(1)}{\Gamma(1)}\right\}^2\right]    \\
-&\qquad +\frac{1}{\lambda^2}\left[\left\{\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}\right\}^2-2\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}\frac{\Gamma'(1)}{\Gamma(1)}+\left\{\frac{\Gamma'(1)}{\Gamma(1)}\right\}^2\right]    \\
+&\qquad +\frac{1}{\lambda^2}\left[\frac{\Gamma''(\alpha)}{\Gamma(\alpha)}-\left\lbrace\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}\right\rbrace^2+\frac{\Gamma''(1)}{\Gamma(1)}-\left\lbrace\frac{\Gamma'(1)}{\Gamma(1)}\right\rbrace^2\right]    \\
+&\qquad +\frac{1}{\lambda^2}\left[\left\lbrace\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}\right\rbrace^2-2\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}\frac{\Gamma'(1)}{\Gamma(1)}+\left\lbrace\frac{\Gamma'(1)}{\Gamma(1)}\right\rbrace^2\right]    \\
 &=\mu^2+2\frac{\mu}{\lambda}\left[\psi(\alpha)-\psi(1)\right]    \\
 &\qquad +\frac{1}{\lambda^2}\left[\psi'(\alpha)+\psi'(1)\right]    \\
 &\qquad +\frac{1}{\lambda^2}\left[\psi(\alpha)-\psi(1)\right]^2
@@ -286,7 +286,7 @@ Using $M''_x(0)$ and $\left[M'_x(x)\right]^2$,
 
 $$
 \begin{align}
-\therefore Var(x) &=E\left(x^2\right)-\left[E(x)\right]^2    \\
+\therefore Var(x) &=E\left\lbracex^2\right\rbrace-\left[E(x)\right]^2    \\
 &= M''_x(0)-\left[M'_x(x)\right]^2    \\
 &=\frac{1}{\lambda^2}\left[\psi'(\alpha)+\psi'(1)\right]    \\
 &\approx\frac{1}{\lambda^2}\left[\frac{1}{\alpha}+\frac{1}{2\alpha^2}+\frac{1}{6\alpha^3}+1.64493407\right]
@@ -298,7 +298,7 @@ $$
 
 $$
 \begin{align}
-M^{(3)}_x(0)=E\left(x^3\right)  &=\mu M''_x(0)+\frac{\mu^2}{\lambda}\left[\psi(\alpha)-\psi(1)\right]    \\
+M^{(3)}_x(0)=E\left\lbracex^3\right\rbrace  &=\mu M''_x(0)+\frac{\mu^2}{\lambda}\left[\psi(\alpha)-\psi(1)\right]    \\
 &\qquad +\frac{2\mu}{\lambda^2}\left[\left[\psi'(\alpha)+\psi'(1)\right]+\left[\psi(\alpha)-\psi(1)\right]^2\right]    \\
 &\qquad +\frac{1}{\lambda^3}\left[\frac{\Gamma^{(3)}(\alpha)}{\Gamma(\alpha)}-\frac{\Gamma^{(3)}(1)}{\Gamma(1)}\right]    \\
 &\qquad -\frac{1}{\lambda^3}\left[3\psi'(\alpha)\psi(1)-3\psi(\alpha)\psi'(1)\right]    \\
@@ -332,7 +332,7 @@ $$
 
 $$
 \begin{align}
-Var(x)^{\frac{3}{2}}Skew(x)&=E\left[\left(x-E(x)\right)^3\right]=E\left(x^3\right)-3E(x)Var(x)-E(x)^3    \\
+Var(x)^{\frac{3}{2}}Skew(x)&=E\left[\left\lbracex-E(x)\right\rbrace^3\right]=E\left\lbracex^3\right\rbrace-3E(x)Var(x)-E(x)^3    \\
 &=M^{(3)}_x(0)-3Mean(x)Var(x)-Mean(x)^3    \\
 &=\frac{1}{\lambda^3}\left[\frac{\Gamma^{(3)}(\alpha)}{\Gamma(\alpha)}-\frac{\Gamma^{(3)}(1)}{\Gamma(1)}\right]    \\
 &\qquad -\frac{1}{\lambda^3}\left[3\psi'(\alpha)\psi(1)-3\psi(\alpha)\psi'(1)\right]    \\
@@ -392,8 +392,8 @@ Let $f(\alpha)=\zeta \left[\frac{1}{\alpha}+\frac{1}{2\alpha^2}+\frac{1}{6\alpha
 $$
 \begin{align}
 f'(\alpha)&=\frac{d}{d\alpha}f(\alpha)    \\
-&=-\zeta\frac{3}{2} \left(\frac{1}{\alpha}+\frac{1}{2\alpha^2}+\frac{1}{6\alpha^3}+1.64493407\right)^{\frac{1}{2}}\left(\frac{1}{\alpha^2}+\frac{1}{\alpha^3}+\frac{1}{2\alpha^4}\right)    \\
-&\quad -\left(\frac{2}{\alpha^3}+\frac{3}{\alpha^4}+\frac{2}{\alpha^5}\right)
+&=-\zeta\frac{3}{2} \left\lbrace\frac{1}{\alpha}+\frac{1}{2\alpha^2}+\frac{1}{6\alpha^3}+1.64493407\right\rbrace^{\frac{1}{2}}\left\lbrace\frac{1}{\alpha^2}+\frac{1}{\alpha^3}+\frac{1}{2\alpha^4}\right\rbrace    \\
+&\quad -\left\lbrace\frac{2}{\alpha^3}+\frac{3}{\alpha^4}+\frac{2}{\alpha^5}\right\rbrace
 \end{align}
 $$
 
